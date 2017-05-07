@@ -14,7 +14,7 @@ SAMPLE_NOTE = D2  # the sample file plays at this pitch
 
 
 def play_note(note, beats=1, bpm=60, amp=1):
-    """Plays note for `beats` beats. Returns when done."""
+    """Play note for `beats` beats. Return when done."""
     # `note` is this many half-steps higher than the sampled note
     half_steps = note - SAMPLE_NOTE
     # An octave higher is twice the frequency. There are twelve half-steps per octave. Ergo,
@@ -27,11 +27,12 @@ def play_note(note, beats=1, bpm=60, amp=1):
 
 
 def stop():
-    """Stops all tracks."""
+    """Stop all tracks."""
     msg = osc_message_builder.OscMessageBuilder(address='/stop-all-jobs')
     msg.add_arg('SONIC_PI_PYTHON')
     msg = msg.build()
     synthServer.client.send(msg)
+
 
 atexit.register(stop)  # stop all tracks when the program exits normally or is interrupted
 
